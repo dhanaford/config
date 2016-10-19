@@ -1,3 +1,8 @@
+# Accordant stuff
+alias setdev='ec2dev=$(aws ec2 describe-instances --instance-ids i-a869512b | grep PublicIpAddress | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")'
+alias sshdev='ssh -Y -i ~/.ssh/dhanaford_id_rsa dhanaford@$ec2dev'
+alias mountdev='setdev && sshfs -o IdentityFile=~/.ssh/dhanaford_id_rsa dhanaford@$ec2dev:/ ~/mnt/droplet -ovolname=AudConn,allow_other'
+
 # Color files and directories
 alias ls="ls -G"
 
@@ -42,7 +47,7 @@ _set_prompt() {
     # Add the current working directory to the prompt in blue
     PS1="$blue\w "
 
-  # Other the last command's exit code was non-zero (i.e. failure)
+  # Otherwise the last command's exit code was non-zero (i.e. failure)
   else
 
     # Add the current working directory to the prompt in red
